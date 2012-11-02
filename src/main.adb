@@ -2,6 +2,8 @@ with Ada.Text_IO;
 with Alog.Logger;
 
 procedure Main is
+    Log : Alog.Logger.Instance (Init => True);
 begin
-    Ada.Text_IO.Put_Line("Sting!");
+    Log.Log_Message (Level => Alog.Info,
+                     Msg => "Stingd! logging");
 end Main;
