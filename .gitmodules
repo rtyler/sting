@@ -1,3 +1,6 @@
 [submodule "contrib/alog"]
 	path = contrib/alog
 	url = http://git.codelabs.ch/git/alog.git
+[submodule "contrib/anet"]
+	path = contrib/anet
+	url = http://git.codelabs.ch/git/anet.git
