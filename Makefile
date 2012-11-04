@@ -11,7 +11,7 @@ TEST_RUNNER=test_runner
 COVERAGE_LIST=coveragefiles.txt
 
 pre:
-	mkdir -p obj/{test,release,debug}
+	mkdir -p bin obj/{test,release,debug}
 
 precompile: pre
 	gnatmake -gnatc -gnat05 -P $(GPRFILE)
@@ -21,12 +21,12 @@ prepare_coverage: pre
 		| grep -v "main.adb" > $(COVERAGE_LIST)
 
 
-test: precompile prepare_coverage
+test: prepare_coverage
 	$(GPRBUILD) -p $(GPRFILE) -Xmode=test
 	@echo
 	@echo "Running tests...."
 	@echo "------------------------------"
-	@./$(TEST_RUNNER)
+	@./bin/$(TEST_RUNNER)
 	@echo "------------------------------"
 	@echo
 	@echo "Coverage Report: "
@@ -41,7 +41,7 @@ release: precompile
 
 clean: pre
 	$(GPRCLEAN) $(GPRFILE)
-	rm -rf obj $(DAEMON) $(TEST_RUNNER) $(COVERAGE_LIST)
+	rm -rf obj biu $(COVERAGE_LIST) *.gcov
 
 
 .PHONY: pre clean test precompile release test prepare_coverage
