@@ -10,28 +10,23 @@ DAEMON=stingd
 GPROPTS=
 
 pre:
-	mkdir -p build obj
+	mkdir -p obj/{test,release,debug}
 
 precompile: pre
 	gnatmake -gnatc -gnat05 -P $(GPRFILE)
 
-test: precompile sting
-	@echo "======="
-	@echo
-	@./$(DAEMON)
-	@echo
-	@echo "======="
+test: precompile
+	$(GPRBUILD) -p $(GPRFILE) -Xmode=test
 
 sting: precompile
-	$(GPRBUILD) -p $(GPRFILE) $(GPROPTS)
+	$(GPRBUILD) -p $(GPRFILE)
 
 release: precompile
-	GPROPTS='-X"mode=release"'
-	$(MAKE) sting
+	$(GPRBUILD) -p $(GPRFILE) -Xmode=release
 
 clean:
 	$(GPRCLEAN) $(GPRFILE)
-	rm -rf build obj $(DAEMON)
+	rm -rf obj $(DAEMON)
 
 
 .PHONY: pre clean test precompile release
