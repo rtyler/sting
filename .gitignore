@@ -1,7 +1,15 @@
 obj
-build
 tmp
+
 *.swp
-stingd
+*.gcov
+
+
+# Hidden files
 .rvmrc
+
+# Executables
+stingd
 sting_testrunner
+test_runner
+coveragefiles.txt
