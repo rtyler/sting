@@ -11,13 +11,13 @@ package Sting is
     function Parse (Buffer : in String) return Command;
 
 
-    package KeyChain is new Ada.Containers.Doubly_Linked_Lists (
+    package Key_Chain is new Ada.Containers.Doubly_Linked_Lists (
             Element_Type => Key_Type);
 
 private
 
     type Command is tagged record
         Kind : Command_Type;
-        Keys : KeyChain.List;
+        Keys : Key_Chain.List;
     end record;
 end Sting;

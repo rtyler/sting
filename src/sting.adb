@@ -1,6 +1,7 @@
 private with GNAT.String_Split;
 use GNAT.String_Split;
-with Ada.Text_IO;
+with Ada.Text_IO,
+     Ada.Characters.Latin_1;
 use Ada.Text_IO;
 
 package body Sting is
@@ -31,14 +32,11 @@ package body Sting is
                     for J in 2 .. Slice_Count (Keys) loop
                         declare
                             Sub : String := Slice (Keys, J);
-                            K : Key_Type := Key_Type (
-                                    Sub (Sub'First .. Sub'Last));
+                            K : Key_Type := (others => Ada.Characters.Latin_1.NUL);
                         begin
-                            Put_Line ("LOL: " & Sub);
-                            Put_Line (Positive'Image (Sub'First));
-                            Put_Line (Positive'Image (Sub'Length));
-                            Put_Line (Sub (Sub'First .. Sub'Last));
-                            --C.Keys.Append (K);
+                            -- WTF IS THIS WIZARDRY
+                            K := Key_Type (Sub & String (K ((Sub'Length + 1).. K'Last)));
+                            C.Keys.Append (K);
                         end;
                     end loop;
                 end;
