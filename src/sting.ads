@@ -4,7 +4,6 @@ package Sting is
 
     type Command is tagged private;
 
-    procedure Hello;
     function Parse (Buffer : in String) return Command;
 
 private

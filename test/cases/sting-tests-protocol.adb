@@ -5,6 +5,13 @@ package body Sting.Tests.Protocol is
     use AUnit.Test_Cases,
         AUnit.Assertions;
 
+    procedure Test_Unknown (T : in out Test_Case'Class) is
+        Cmd : Sting.Command;
+    begin
+        Cmd := Sting.Parse ("lolwut?");
+        Assert ((Cmd.Kind = Sting.Unknown), "Command is somehow known?");
+    end Test_Unknown;
+
     procedure Test_Ping (T : in out Test_Case'Class) is
         Cmd : Sting.Command;
         Buf : constant String := "ping";
@@ -14,6 +21,17 @@ package body Sting.Tests.Protocol is
     end Test_Ping;
 
 
+    procedure Test_Read (T : in out Test_Case'Class) is
+        Cmd : Sting.Command;
+        Buf : constant String := "read /ada";
+    begin
+        Cmd := Sting.Parse (Buf);
+        Assert ((Cmd.Kind = Sting.Read), "Command not a read!");
+        -- TODO: Handle keys?!
+        -- Assert ((Cmd.Key = "ada"), "Couldn't find the right key!");
+    end Test_Read;
+
+
     --
     --  AUnit set up code
 
@@ -21,7 +39,9 @@ package body Sting.Tests.Protocol is
         use AUnit.Test_Cases.Registration;
     begin
 
+        Register_Routine (T, Test_Unknown'Access, "Parse an unknown command");
         Register_Routine (T, Test_Ping'Access, "Parse a ping command");
+        Register_Routine (T, Test_Read'Access, "Parse a read command");
 
     end Register_Tests;
 
