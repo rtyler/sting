@@ -17,6 +17,12 @@ precompile: pre
 
 test: precompile
 	$(GPRBUILD) -p $(GPRFILE) -Xmode=test
+	@echo
+	@echo "Running tests...."
+	@echo "------------------------------"
+	./sting_testrunner
+	@echo "------------------------------"
+	@echo
 
 sting: precompile
 	$(GPRBUILD) -p $(GPRFILE)
