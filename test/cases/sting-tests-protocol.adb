@@ -5,13 +5,13 @@ package body Sting.Tests.Protocol is
     use AUnit.Test_Cases,
         AUnit.Assertions;
 
-    procedure Test_Test (T : in out Test_Case'Class) is
+    procedure Test_Ping (T : in out Test_Case'Class) is
+        Cmd : Sting.Command;
+        Buf : constant String := "ping";
     begin
-
-        Assert (Condition => (1 = 1),
-                Message => "Universe is broken");
-
-    end Test_Test;
+        Cmd := Sting.Parse (Buf);
+        Assert ((Cmd.Kind = Sting.Ping), "Command not a ping!");
+    end Test_Ping;
 
 
     --
@@ -21,7 +21,7 @@ package body Sting.Tests.Protocol is
         use AUnit.Test_Cases.Registration;
     begin
 
-        Register_Routine (T, Test_Test'Access, "Validate world");
+        Register_Routine (T, Test_Ping'Access, "Parse a ping command");
 
     end Register_Tests;
 
