@@ -1,8 +1,6 @@
 with AUnit.Test_Cases,
      AUnit.Assertions;
 
-with Ada.Text_IO;
-
 package body Sting.Tests.Protocol is
     use AUnit.Test_Cases,
         AUnit.Assertions;

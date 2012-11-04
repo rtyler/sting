@@ -30,14 +30,7 @@ package body Sting is
                 begin
                     Create (Keys, Slice (Parts, I), "/", Mode => Multiple);
                     for J in 2 .. Slice_Count (Keys) loop
-                        declare
-                            Sub : String := Slice (Keys, J);
-                            K : Key_Type := (others => Ada.Characters.Latin_1.NUL);
-                        begin
-                            -- WTF IS THIS WIZARDRY
-                            K := Key_Type (Sub & String (K ((Sub'Length + 1).. K'Last)));
-                            C.Keys.Append (K);
-                        end;
+                        C.Keys.Append (Slice (Keys, J));
                     end loop;
                 end;
             end loop;
