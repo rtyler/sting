@@ -18,7 +18,7 @@ project Sting is
                                 "contrib/alog/src",
                                 "contrib/anet/src");
         when "test" =>
-            for Main use ("sting-tests-runner.adb");
+            for Main use ("test_runner.adb");
             for Source_Dirs use ("src",
                                 "test");
     end case;
@@ -37,7 +37,7 @@ project Sting is
 
     package Compiler is
         for Default_Switches ("Ada") use
-            ("-gnateS", "-gnatv", "-gnat05");
+            ("-Wall", "-gnateS", "-gnatv", "-gnat05");
 
         case Mode is
             when "test" =>
