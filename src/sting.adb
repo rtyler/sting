@@ -1,5 +1,7 @@
 private with GNAT.String_Split;
 use GNAT.String_Split;
+with Ada.Text_IO;
+use Ada.Text_IO;
 
 package body Sting is
 
@@ -20,9 +22,27 @@ package body Sting is
         -- key
         Create (Parts, Buffer, " ", Mode => Multiple);
 
-        if Slice_Count (Parts) < 2 then
-            -- TODO: Error out dummy!
-            null;
+        if Slice_Count (Parts) >= 2 then
+            for I in 2 .. Slice_Count (Parts) loop
+                declare
+                    Keys : Slice_Set;
+                begin
+                    Create (Keys, Slice (Parts, I), "/", Mode => Multiple);
+                    for J in 2 .. Slice_Count (Keys) loop
+                        declare
+                            Sub : String := Slice (Keys, J);
+                            K : Key_Type := Key_Type (
+                                    Sub (Sub'First .. Sub'Last));
+                        begin
+                            Put_Line ("LOL: " & Sub);
+                            Put_Line (Positive'Image (Sub'First));
+                            Put_Line (Positive'Image (Sub'Length));
+                            Put_Line (Sub (Sub'First .. Sub'Last));
+                            --C.Keys.Append (K);
+                        end;
+                    end loop;
+                end;
+            end loop;
         end if;
 
         if Slice (Parts, 1) = "read" then

@@ -24,11 +24,13 @@ package body Sting.Tests.Protocol is
     procedure Test_Read (T : in out Test_Case'Class) is
         Cmd : Sting.Command;
         Buf : constant String := "read /ada";
+
+        use Ada.Containers;
     begin
         Cmd := Sting.Parse (Buf);
         Assert ((Cmd.Kind = Sting.Read), "Command not a read!");
-        -- TODO: Handle keys?!
-        -- Assert ((Cmd.Key = "ada"), "Couldn't find the right key!");
+        Assert ((Cmd.Keys.Length > 0), "No keys found in the Command");
+        Assert ((Cmd.Keys.First_Element = "ada"), "The correct key is not present in the parsed command");
     end Test_Read;
 
 
