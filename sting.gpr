@@ -38,7 +38,7 @@ project Sting is
 
     package Compiler is
         for Default_Switches ("Ada") use
-            ("-Wall", "-gnateS", "-gnatv", "-gnat05");
+            ("-Wall", "-gnateS", "-gnatv", "-gnat2012");
 
         case Mode is
             when "test" =>
