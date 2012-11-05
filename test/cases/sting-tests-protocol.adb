@@ -80,6 +80,18 @@ package body Sting.Tests.Protocol is
     end Test_Read_Big_Key;
 
 
+    procedure Test_Read_Empty_Key (T : in out Test_Case'Class) is
+        Cmd : Command;
+        Buf : constant String := "read /";
+    begin
+        Cmd := Parse (Buf);
+        Assert (False, "Failed to raise an Invalid_Key_Error");
+    exception
+        when Invalid_Key_Error =>
+            null;
+    end Test_Read_Empty_Key;
+
+
     --
     --  AUnit set up code
 
@@ -92,6 +104,7 @@ package body Sting.Tests.Protocol is
         Register_Routine (T, Test_Read'Access, "Parse a read command");
         Register_Routine (T, Test_Read_Many_Keys'Access, "Parse a read command with composite keys");
         Register_Routine (T, Test_Read_Big_Key'Access, "Raise an error when reading a key that's too damn big");
+        Register_Routine (T, Test_Read_Empty_Key'Access, "Raise an error when reading an empty key");
 
     end Register_Tests;
 

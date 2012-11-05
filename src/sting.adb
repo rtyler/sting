@@ -33,7 +33,7 @@ package body Sting is
                         declare
                             Key : String := Slice (Keys, J);
                         begin
-                            if Key'Length > Max_Key_Length then
+                            if (Key'Length > Max_Key_Length) or (Key'Length = 0) then
                                 raise Invalid_Key_Error;
                             end if;
 
