@@ -31,7 +31,7 @@ test: prepare_coverage
 	@echo
 	@echo "Coverage Report: "
 	@echo "------------------------------"
-	@gcov -f -o obj/test @$(COVERAGE_LIST)
+	@gcov -o obj/test @$(COVERAGE_LIST)
 
 sting: precompile
 	$(GPRBUILD) -p $(GPRFILE)

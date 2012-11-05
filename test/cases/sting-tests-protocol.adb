@@ -34,6 +34,37 @@ package body Sting.Tests.Protocol is
     end Test_Read;
 
 
+    procedure Test_Read_Many_Keys (T : in out Test_Case'Class) is
+        type SA is access String;
+        Cmd : Sting.Command;
+        Buf : constant String := "read /ada/is/neat";
+        Keys : array (Positive range 1 .. 3) of SA := (new String'("ada"),
+                                                        new String'("is"),
+                                                        new String'("neat"));
+
+        use Ada.Containers;
+    begin
+        Cmd := Sting.Parse (Buf);
+        Assert ((Cmd.Kind = Sting.Read), "Command is not a read!");
+        Assert ((Cmd.Keys.Length = 3), "Incorrect number of keys found");
+
+        declare
+            Cursor : Key_Chain.Cursor := Cmd.Keys.First;
+        begin
+            for I in Keys'Range loop
+                declare
+                    Current : String := Key_Chain.Element (Cursor);
+                    Expected : String := Keys (I).all;
+                begin
+                    Assert ((Current = Expected),
+                                "The key '" & Current & "' was expected to be '" & Expected & "'");
+                    Cursor := Key_Chain.Next (Cursor);
+                end;
+            end loop;
+        end;
+    end Test_Read_Many_Keys;
+
+
     --
     --  AUnit set up code
 
@@ -44,6 +75,7 @@ package body Sting.Tests.Protocol is
         Register_Routine (T, Test_Unknown'Access, "Parse an unknown command");
         Register_Routine (T, Test_Ping'Access, "Parse a ping command");
         Register_Routine (T, Test_Read'Access, "Parse a read command");
+        Register_Routine (T, Test_Read_Many_Keys'Access, "Parse a read command with composite keys");
 
     end Register_Tests;
 
