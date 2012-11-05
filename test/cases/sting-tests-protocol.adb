@@ -12,6 +12,7 @@ package body Sting.Tests.Protocol is
         Assert ((Cmd.Kind = Sting.Unknown), "Command is somehow known?");
     end Test_Unknown;
 
+
     procedure Test_Ping (T : in out Test_Case'Class) is
         Cmd : Sting.Command;
         Buf : constant String := "ping";
@@ -65,6 +66,20 @@ package body Sting.Tests.Protocol is
     end Test_Read_Many_Keys;
 
 
+    procedure Test_Read_Big_Key (T : in out Test_Case'Class) is
+        Cmd : Command;
+        -- Let's create a key that is a boatload of "f" characters
+        Key : constant String (1 .. (Max_Key_Length + 1)) := (others => 'f');
+        Buf : constant String := "read /" & Key;
+    begin
+        Cmd := Parse (Buf);
+        Assert (False, "Failed to raise an Invalid_Key_Error");
+    exception
+        when Invalid_Key_Error =>
+            null;
+    end Test_Read_Big_Key;
+
+
     --
     --  AUnit set up code
 
@@ -76,6 +91,7 @@ package body Sting.Tests.Protocol is
         Register_Routine (T, Test_Ping'Access, "Parse a ping command");
         Register_Routine (T, Test_Read'Access, "Parse a read command");
         Register_Routine (T, Test_Read_Many_Keys'Access, "Parse a read command with composite keys");
+        Register_Routine (T, Test_Read_Big_Key'Access, "Raise an error when reading a key that's too damn big");
 
     end Register_Tests;
 

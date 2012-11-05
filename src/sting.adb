@@ -30,7 +30,15 @@ package body Sting is
                 begin
                     Create (Keys, Slice (Parts, I), "/", Mode => Multiple);
                     for J in 2 .. Slice_Count (Keys) loop
-                        C.Keys.Append (Slice (Keys, J));
+                        declare
+                            Key : String := Slice (Keys, J);
+                        begin
+                            if Key'Length > Max_Key_Length then
+                                raise Invalid_Key_Error;
+                            end if;
+
+                            C.Keys.Append (Key);
+                        end;
                     end loop;
                 end;
             end loop;

@@ -10,6 +10,9 @@ package Sting is
     package Key_Chain is new Ada.Containers.Indefinite_Doubly_Linked_Lists (
             Element_Type => String);
 
+    Invalid_Key_Error : exception;
+    Max_Key_Length : constant Positive := 255;
+
 private
 
     type Command is tagged record
