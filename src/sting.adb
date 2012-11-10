@@ -1,8 +1,5 @@
 private with GNAT.String_Split;
 use GNAT.String_Split;
-with Ada.Text_IO,
-     Ada.Characters.Latin_1;
-use Ada.Text_IO;
 
 package body Sting is
 
@@ -28,7 +25,7 @@ package body Sting is
 
                 for J in 2 .. Slice_Count (Keys) loop
                     declare
-                        Key : String := Slice (Keys, J);
+                        Key : constant String := Slice (Keys, J);
                     begin
                         Validate_Key (Key);
                         C.Keys.Append (Key);

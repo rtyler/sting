@@ -1,11 +1,11 @@
-with AUnit.Test_Cases,
-     AUnit.Assertions;
+with AUnit.Assertions;
 
 package body Sting.Tests.Protocol is
     use AUnit.Test_Cases,
         AUnit.Assertions;
 
     procedure Test_Unknown (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         Cmd : Sting.Command;
     begin
         Cmd := Sting.Parse ("lolwut?");
@@ -14,6 +14,7 @@ package body Sting.Tests.Protocol is
 
 
     procedure Test_Ping (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         Cmd : Sting.Command;
         Buf : constant String := "ping";
     begin
@@ -23,6 +24,7 @@ package body Sting.Tests.Protocol is
 
 
     procedure Test_Read (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         Cmd : Sting.Command;
         Buf : constant String := "read /ada";
 
@@ -36,12 +38,13 @@ package body Sting.Tests.Protocol is
 
 
     procedure Test_Read_Many_Keys (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         type SA is access String;
         Cmd : Sting.Command;
         Buf : constant String := "read /ada/is/neat";
-        Keys : array (Positive range 1 .. 3) of SA := (new String'("ada"),
-                                                        new String'("is"),
-                                                        new String'("neat"));
+        Keys : constant array (Positive range 1 .. 3) of SA := (new String'("ada"),
+                                                                new String'("is"),
+                                                                new String'("neat"));
 
         use Ada.Containers;
     begin
@@ -54,8 +57,8 @@ package body Sting.Tests.Protocol is
         begin
             for I in Keys'Range loop
                 declare
-                    Current : String := Key_Chain.Element (Cursor);
-                    Expected : String := Keys (I).all;
+                    Current : constant String := Key_Chain.Element (Cursor);
+                    Expected : constant String := Keys (I).all;
                 begin
                     Assert ((Current = Expected),
                                 "The key '" & Current & "' was expected to be '" & Expected & "'");
@@ -67,6 +70,7 @@ package body Sting.Tests.Protocol is
 
 
     procedure Test_Read_Big_Key (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         Cmd : Command;
         -- Let's create a key that is a boatload of "f" characters
         Key : constant String (1 .. (Max_Key_Length + 1)) := (others => 'f');
@@ -81,6 +85,7 @@ package body Sting.Tests.Protocol is
 
 
     procedure Test_Read_Empty_Key (T : in out Test_Case'Class) is
+        pragma Unreferenced (T);
         Cmd : Command;
         Buf : constant String := "read /";
     begin

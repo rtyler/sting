@@ -1,5 +1,3 @@
-with AUnit.Test_Suites;
-
 private with Sting.Tests.Protocol;
 
 package body Sting.Tests is
