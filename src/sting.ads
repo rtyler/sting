@@ -5,7 +5,8 @@ package Sting is
     type Command_Type is (Ping, Create, Read, Delete, Keys, Count, Unknown);
     type Command is tagged private;
 
-    function Parse (Buffer : in String) return Command;
+    function Parse (Buffer : in String) return Command with
+        Pre => Buffer'Length >0;
 
     package Key_Chain is new Ada.Containers.Indefinite_Doubly_Linked_Lists (
             Element_Type => String);
