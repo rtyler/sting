@@ -37,8 +37,7 @@ project Sting is
 
 
     package Compiler is
-        for Default_Switches ("Ada") use
-            ("-Wall", "-gnateS", "-gnatv", "-gnat2012");
+        Switches := ("-Wall", "-gnateS", "-gnatv", "-gnat2012");
 
         case Mode is
             when "test" =>
@@ -46,12 +45,12 @@ project Sting is
                                         "-fprofile-arcs",
                                         "-ftest-coverage",
                                         "-largs",
-                                        "-fprofile-arcs");
+                                        "-fprofile-arcs") & Switches;
             when "debug" =>
-                for Switches ("Ada") use ("-g");
+                for Switches ("Ada") use ("-g") & Switches;
 
             when "release" =>
-                for Switches ("Ada") use ("-O2");
+                for Switches ("Ada") use ("-O2") & Switches;
         end case;
     end Compiler;
 
