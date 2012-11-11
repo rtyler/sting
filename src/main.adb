@@ -1,4 +1,3 @@
-with Ada.Text_IO;
 with Alog.Logger;
 
 procedure Main is
