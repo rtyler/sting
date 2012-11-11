@@ -1,9 +1,7 @@
 package body Sting.Store is
 
     function Count (E : in Engine) return Natural is
-    begin
-        return Natural (E.Backend.Length);
-    end Count;
+        (Natural (E.Backend.Length));
 
 
     procedure Insert (E : in out Engine;
