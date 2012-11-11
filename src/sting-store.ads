@@ -5,7 +5,7 @@ package Sting.Store is
     type SString is access String;
 
     function Count (E : in Engine) return Natural;
-    procedure Insert (E : in Engine;
+    procedure Insert (E : in out Engine;
                         Key : in SString;
                         Value : in SString);
 

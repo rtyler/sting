@@ -6,13 +6,11 @@ package body Sting.Store is
     end Count;
 
 
-    procedure Insert (E : in Engine;
+    procedure Insert (E : in out Engine;
                         Key : in SString;
                         Value : in SString) is
-
-        B : StingContainer.Map := E.Backend;
     begin
-        B.Insert (Key, Value);
+        E.Backend.Insert (Key, Value);
     end Insert;
 
 
