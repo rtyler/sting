@@ -1,3 +1,5 @@
+with Ada.Strings.Hash;
+
 package body Sting.Store is
 
     function Count (E : in Engine) return Natural is
@@ -13,9 +15,8 @@ package body Sting.Store is
 
 
     function Hersh (Key : SString) return Ada.Containers.Hash_Type is
-        pragma Unreferenced (Key);
     begin
-        return Ada.Containers.Hash_Type'Val (1);
+        return Ada.Strings.Hash (Key.all);
     end Hersh;
 
 end Sting.Store;
