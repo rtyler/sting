@@ -5,18 +5,23 @@ package Sting.Store is
     type SString is access String;
 
     function Count (E : in Engine) return Natural;
-    procedure Insert (E : in out Engine;
-                        Key : in SString;
-                        Value : in SString);
 
-    function Hersh (Key : SString) return Ada.Containers.Hash_Type;
+    function Hash (Key : SString) return Ada.Containers.Hash_Type;
+
+    procedure Insert (E     : in out Engine;
+                      Key   : in SString;
+                      Value : in SString);
+
+    function Retrieve (E   : in Engine;
+                       Key : in SString) return SString;
+
+private
 
     package StingContainer is new Ada.Containers.Hashed_Maps
-        (Key_Type => SString,
-         Element_Type => SString,
-         Hash => Hersh,
+        (Key_Type        => SString,
+         Element_Type    => SString,
+         Hash            => Hash,
          Equivalent_Keys => "=");
-private
 
     type Engine is tagged record
         Backend : StingContainer.Map;
