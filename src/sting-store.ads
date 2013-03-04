@@ -1,4 +1,5 @@
-with Ada.Containers.Hashed_Maps;
+with Ada.Containers.Hashed_Maps,
+     GNATcoll.Mmap;
 
 package Sting.Store is
     type Engine is tagged private;
